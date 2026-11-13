@@ -1,0 +1,89 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>DW_Land_Cube</Database>
+    <Server>NNYEIK\MULTIDIM2</Server>
+    <ConnectionString>Data Source=NNYEIK\MULTIDIM2;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>Default</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>gyyGeHR4oVeEP3JLuR18Z0u0hgc=11/13/2026 6:31:13 PM11/13/2026 6:31:13 PM</TimeStamp>
+        <ID>
+          <String>DW Land</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>NLAQpOgmHVNTa+FffdNtWn8zrdw=11/13/2026 6:38:50 PM11/13/2026 6:32:53 PM</TimeStamp>
+        <ID>
+          <String>DW_Land_DSV</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>/ogLUa8nAzv+hFeah4TODSJ6WOQ=11/13/2026 6:53:45 PM11/13/2026 6:38:50 PM</TimeStamp>
+        <ID>
+          <String>Dim Location</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>HCO1lK5OmbWAJDWubgazGwc27Bc=11/13/2026 7:46:28 PM11/13/2026 6:38:50 PM</TimeStamp>
+        <ID>
+          <String>Dim Land Profile</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>Phq8OueI102xAEoQv0MTGHdzKFI=11/13/2026 7:49:28 PM11/13/2026 6:38:50 PM</TimeStamp>
+        <ID>
+          <String>Dim Price Segment</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>7epARiDwAFl+2/PxZNcEYd5rfeQ=11/13/2026 7:50:19 PM11/13/2026 6:38:50 PM</TimeStamp>
+        <ID>
+          <String>Dim Size Group</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>zG+jAQI07pCHVRcqG+VAmMpVZkI=11/13/2026 8:00:04 PM11/13/2026 6:38:50 PM</TimeStamp>
+        <ID>
+          <String>Dim Time</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>Jhkd2YyKay63inzP7T4EuQIIPv8=11/13/2026 7:50:19 PM11/13/2026 6:38:50 PMzRXFVq75A9iAykuZiX4TdCgLkMQ=11/13/2026 6:38:50 PM11/13/2026 6:38:50 PM</TimeStamp>
+        <ID>
+          <String>Cube_Land</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>zp7Cz2yM5W0iockgNapRDEtQg4I=11/13/2026 5:48:19 PM11/13/2026 5:48:19 PM</TimeStamp>
+      <ID>
+        <String>DW_Land_Cube</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2026-11-13T13:05:05.31Z</LastDeployed>
+</DeploymentSnapshot>

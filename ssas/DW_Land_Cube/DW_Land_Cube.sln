@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37827.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D2ABAB84-BF74-430A-B69E-9DC6D40DDA17}") = "DW_Land_Cube", "DW_Land_Cube\DW_Land_Cube.dwproj", "{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}.Development|Default.ActiveCfg = Development
+		{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}.Development|Default.Build.0 = Development
+		{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}.Development|Default.Deploy.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C1C1324-3FF2-4D2F-9601-A03B9D2E8016}
+	EndGlobalSection
+EndGlobal

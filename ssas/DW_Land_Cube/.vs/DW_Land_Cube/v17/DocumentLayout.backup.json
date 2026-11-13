@@ -1,0 +1,140 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Cube_Land.cube||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|solutionrelative:DW_Land_Cube\\Cube_Land.cube||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Time.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|solutionrelative:DW_Land_Cube\\Dim Time.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Size Group.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|solutionrelative:DW_Land_Cube\\Dim Size Group.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Price Segment.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|solutionrelative:DW_Land_Cube\\Dim Price Segment.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Land Profile.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|solutionrelative:DW_Land_Cube\\Dim Land Profile.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|solutionrelative:DW_Land_Cube\\Dim Location.dim||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\DW_Land_DSV.dsv||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design",
+      "RelativeMoniker": "D:0:0:{5D038D8B-A924-284A-4FD1-8A37E5D8AF7B}|DW_Land_Cube\\DW_Land_Cube.dwproj|solutionrelative:DW_Land_Cube\\DW_Land_DSV.dsv||{B4191D15-2D32-45F2-906F-E91BBAAA6059}|Design"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{7cc9e714-2774-4fc6-8631-a07eee703286}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Dim Size Group.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Size Group.dim",
+              "RelativeDocumentMoniker": "DW_Land_Cube\\Dim Size Group.dim",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Size Group.dim [Design]",
+              "RelativeToolTip": "DW_Land_Cube\\Dim Size Group.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-11-13T12:49:59.745Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Dim Price Segment.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Price Segment.dim",
+              "RelativeDocumentMoniker": "DW_Land_Cube\\Dim Price Segment.dim",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Price Segment.dim [Design]",
+              "RelativeToolTip": "DW_Land_Cube\\Dim Price Segment.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-11-13T12:48:29.986Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Dim Land Profile.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Land Profile.dim",
+              "RelativeDocumentMoniker": "DW_Land_Cube\\Dim Land Profile.dim",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Land Profile.dim [Design]",
+              "RelativeToolTip": "DW_Land_Cube\\Dim Land Profile.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-11-13T12:45:28.818Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Dim Time.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Time.dim",
+              "RelativeDocumentMoniker": "DW_Land_Cube\\Dim Time.dim",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Time.dim [Design]",
+              "RelativeToolTip": "DW_Land_Cube\\Dim Time.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-11-13T11:56:10.981Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Dim Location.dim [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Location.dim",
+              "RelativeDocumentMoniker": "DW_Land_Cube\\Dim Location.dim",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Dim Location.dim [Design]",
+              "RelativeToolTip": "DW_Land_Cube\\Dim Location.dim [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-11-13T11:43:30.255Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cube_Land.cube [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Cube_Land.cube",
+              "RelativeDocumentMoniker": "DW_Land_Cube\\Cube_Land.cube",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\Cube_Land.cube [Design]",
+              "RelativeToolTip": "DW_Land_Cube\\Cube_Land.cube [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-11-13T11:38:50.67Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DW_Land_DSV.dsv [Design]",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\DW_Land_DSV.dsv",
+              "RelativeDocumentMoniker": "DW_Land_Cube\\DW_Land_DSV.dsv",
+              "ToolTip": "C:\\Users\\ADMIN\\OneDrive\\Downloads\\DW_DSS_Land\\ssas\\DW_Land_Cube\\DW_Land_Cube\\DW_Land_DSV.dsv [Design]",
+              "RelativeToolTip": "DW_Land_Cube\\DW_Land_DSV.dsv [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-11-13T11:33:19.013Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

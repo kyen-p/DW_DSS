@@ -1,0 +1,393 @@
+-- ============================================================================
+-- DU AN: DW_DSS_Land
+-- FILE: OLAP_Queries.mdx
+-- CUBE: Cube_Land   |   DATABASE SSAS: DW_Land_Cube
+-- MUC DICH: 5 thao tac OLAP; BR01 va BR03 day du; ho tro BR04/BR05 theo Cube
+-- CACH CHAY: Boi den MOT lenh SELECT ... ; roi nhan Execute (F5) trong SSMS.
+-- KHONG su dung GO. KHONG Execute toan bo file mot lan.
+-- ============================================================================
+
+-- ============================================================================
+-- PHAN I. NAM THAO TAC OLAP
+-- ============================================================================
+
+-- OLAP01. ROLL-UP
+-- Cau hoi: Moi mien co bao nhieu tin dang dat?
+-- Du kien tu Cube Browser: Mien Bac 26749; Mien Nam 55152; Mien Trung 27008.
+-- Tong 3 mien = 108909.
+SELECT
+    {[Measures].[Fact Listing Count]} ON COLUMNS,
+    NON EMPTY
+        [Dim Location].[Region Group].[Region Group].MEMBERS ON ROWS
+FROM [Cube_Land];
+
+
+-- OLAP02. DRILL-DOWN
+-- Cau hoi: Khi tu mien di xuong tinh/thanh, so tin phan bo nhu the nao?
+-- DrilldownLevel hien dong tong moi mien va cac tinh/thanh ngay ben duoi mien do.
+-- LUU Y: KHONG cong tong tat ca cac dong hien thi vi dong mien va dong tinh la 2 cap.
+SELECT
+    {[Measures].[Fact Listing Count]} ON COLUMNS,
+    NON EMPTY
+        DrilldownLevel(
+            [Dim Location].[Geography].[Region Group].MEMBERS
+        ) ON ROWS
+FROM [Cube_Land];
+
+
+-- OLAP03. SLICE
+-- Cau hoi: Rieng Mien Bac, so tin theo tung phan khuc gia la bao nhieu?
+-- Co dinh 1 mien qua WHERE, giu phan khuc gia lam goc nhin.
+-- Tong cac phan khuc du kien = 26749.
+SELECT
+    {[Measures].[Fact Listing Count]} ON COLUMNS,
+    NON EMPTY
+        [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE ([Dim Location].[Region Group].&[Miền Bắc]);
+
+
+-- OLAP04. DICE
+-- Cau hoi: Tai Mien Nam, trong 2 phan khuc gia 1-3 / 3-5 ty,
+-- va 2 nhom dien tich 50-100 / 100-200 m2, so tin phan bo ra sao?
+-- Gioi han dong thoi nhieu chieu: khu vuc, phan khuc gia, dien tich.
+SELECT
+    NON EMPTY {
+        [Dim Price Segment].[Price Segment].&[1 - 3 tỷ],
+        [Dim Price Segment].[Price Segment].&[3 - 5 tỷ]
+    } ON COLUMNS,
+    NON EMPTY {
+        [Dim Size Group].[Area Group].&[50 - 100 m2],
+        [Dim Size Group].[Area Group].&[100 - 200 m2]
+    } ON ROWS
+FROM [Cube_Land]
+WHERE (
+    [Measures].[Fact Listing Count],
+    [Dim Location].[Region Group].&[Miền Nam]
+);
+
+
+-- OLAP05. PIVOT
+-- Cau hoi: Doi hang va cot cua bang gia x dien tich toan quoc co doi so lieu khong?
+-- Gia tren hang, dien tich tren cot; tong du kien van la 108909.
+SELECT
+    NON EMPTY
+        [Dim Size Group].[Area Group].[Area Group].MEMBERS ON COLUMNS,
+    NON EMPTY
+        [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE ([Measures].[Fact Listing Count]);
+
+
+-- ============================================================================
+-- PHAN II. TRUY VAN NGHIEP VU
+-- BR01: MDX theo nhom gia/dien tich co san, KHONG loc nguong tuy y.
+-- BR02, BR04(median), BR05(>30 ngay): can tinh o muc tung tin bang SQL/Power BI.
+-- BR06: What-if ngan sach thuc hien tai Dashboard DSS.
+-- Mot so truy van BR04/BR05 ben duoi chi la BO TRO PHAN TICH, KHONG thay
+-- cho median gia/m2 hoac ty le tin cu (>30 ngay) cua cau hoi nghiep vu.
+-- Muc dich la giu du 1 file MDX, khong tao cac truy van sai so lieu.
+-- ============================================================================
+
+-- BR01. TIM KHU VUC CO NHIEU TIN DAT PHU HOP NGAN SACH/DIEN TICH
+-- Cau hoi: Neu nguoi mua can dat GIA DUOI 3 TY va DIEN TICH TU 100 DEN DUOI
+--          200 M2, TOP 10 tinh/thanh nao co nhieu tin nhat? Ty trong quoc gia?
+-- Du lieu: Dung DUNG 2 Price Segment "Duoi 1 ty", "1 - 3 ty" va
+--          1 Area Group "100 - 200 m2" trong Cube hien tai.
+-- Ranh gioi nhom ETL: [0,1), [1,3) ty va [100,200) m2.
+-- LUU Y: Gia duoi 3 ty KHAC gia <= 3 ty; gia tri dung 3 ty khong nam trong tap.
+--          Neu can 2,7 ty hoac 80-150 m2 thi Dashboard loc gia/area tung tin.
+--
+-- BR01.1. DOI SOAT TOAN QUOC
+-- Du kien tu bang BR03 da kiem thu: 7076 + 11205 = 18281 tin.
+-- Chay rieng ca khoi WITH ... SELECT ... ;
+WITH
+    MEMBER [Measures].[BR01 Matching Listings] AS
+        SUM(
+            {
+                [Dim Price Segment].[Price Segment].&[Dưới 1 tỷ],
+                [Dim Price Segment].[Price Segment].&[1 - 3 tỷ]
+            },
+            (
+                [Measures].[Fact Listing Count],
+                [Dim Size Group].[Area Group].&[100 - 200 m2]
+            )
+        ),
+        FORMAT_STRING = '#,##0'
+SELECT
+    {[Measures].[BR01 Matching Listings]} ON COLUMNS
+FROM [Cube_Land];
+
+
+-- BR01.2. TOP 10 TINH/THANH VA TY TRONG SO TIN PHU HOP TOAN QUOC
+-- Tong du kien de lam mau so: 18281 (BR01.1). Top 10 chi la mot phan tong.
+-- [BR01 Matching Listings] la dem tin, khong la tong gia/dien tich.
+WITH
+    MEMBER [Measures].[BR01 Matching Listings] AS
+        SUM(
+            {
+                [Dim Price Segment].[Price Segment].&[Dưới 1 tỷ],
+                [Dim Price Segment].[Price Segment].&[1 - 3 tỷ]
+            },
+            (
+                [Measures].[Fact Listing Count],
+                [Dim Size Group].[Area Group].&[100 - 200 m2]
+            )
+        ),
+        FORMAT_STRING = '#,##0'
+
+    MEMBER [Measures].[BR01 National Matching Listings] AS
+        SUM(
+            [Dim Location].[Province New].[Province New].MEMBERS,
+            [Measures].[BR01 Matching Listings]
+        ),
+        FORMAT_STRING = '#,##0'
+
+    MEMBER [Measures].[BR01 Share National] AS
+        IIF(
+            [Measures].[BR01 National Matching Listings] = 0,
+            NULL,
+            [Measures].[BR01 Matching Listings] /
+                [Measures].[BR01 National Matching Listings]
+        ),
+        FORMAT_STRING = '0.00%'
+
+    SET [BR01 Top 10 Provinces] AS
+        TOPCOUNT(
+            FILTER(
+                [Dim Location].[Province New].[Province New].MEMBERS,
+                [Measures].[BR01 Matching Listings] > 0
+            ),
+            10,
+            [Measures].[BR01 Matching Listings]
+        )
+SELECT
+    {
+        [Measures].[BR01 Matching Listings],
+        [Measures].[BR01 Share National]
+    } ON COLUMNS,
+    NON EMPTY [BR01 Top 10 Provinces] ON ROWS
+FROM [Cube_Land];
+
+-- BR02. SO SANH TRUNG VI GIA CHAO BAN/M2
+-- KHONG CO TRUY VAN MDX CHINH XAC VOI CUBE HIEN TAI.
+-- LY DO: Cube khong co Dimension cap ListingID va khong co Measure
+-- PricePerM2 o cap tung tin de Median(.) tinh dung trung vi.
+-- Thuc hien PERCENTILE_CONT(0.5) tai SQL Server / Power BI sau nay.
+-- KHONG lay SUM(Price)/SUM(Area) hay AVG trung vi cua cac tinh thay median.
+
+
+
+-- BR03. PHAN BO TIN DANG THEO PHAN KHUC GIA x NHOM DIEN TICH
+-- BR03.1. Toan quoc (da kiem chung truoc do; tong = 108909)
+SELECT
+    NON EMPTY
+        [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS ON COLUMNS,
+    NON EMPTY
+        [Dim Size Group].[Area Group].[Area Group].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE ([Measures].[Fact Listing Count]);
+
+
+-- BR03.2. Mien Bac (da kiem chung truoc do; tong = 26749)
+SELECT
+    NON EMPTY
+        [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS ON COLUMNS,
+    NON EMPTY
+        [Dim Size Group].[Area Group].[Area Group].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE (
+    [Measures].[Fact Listing Count],
+    [Dim Location].[Region Group].&[Miền Bắc]
+);
+
+
+-- BR03.3. Dong Nai (da kiem chung truoc do; tong = 10553)
+SELECT
+    NON EMPTY
+        [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS ON COLUMNS,
+    NON EMPTY
+        [Dim Size Group].[Area Group].[Area Group].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE (
+    [Measures].[Fact Listing Count],
+    [Dim Location].[Province New].&[Đồng Nai]
+);
+
+
+-- BR03.4. TP. Ho Chi Minh (da kiem chung truoc do; tong = 34076)
+SELECT
+    NON EMPTY
+        [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS ON COLUMNS,
+    NON EMPTY
+        [Dim Size Group].[Area Group].[Area Group].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE (
+    [Measures].[Fact Listing Count],
+    [Dim Location].[Province New].&[TP. Hồ Chí Minh]
+);
+
+
+-- BR03.5. PARETO 20% TO HOP (6 / 30 TO HOP)
+-- Cau hoi: 6 to hop nhom gia x nhom dien tich co nhieu tin nhat
+--          chiem bao nhieu % cua 108909 tin toan quoc?
+-- Day la phep KIEM TRA Pareto 80/20, khong mac dinh dat 80%.
+-- Doi soat tu CSV sach: top 6 = 47303 tin, chiem khoang 43.43%.
+-- Cac dong duoc sap xep giam dan theo so tin.
+WITH
+    SET [BR03 Top 6 Combinations] AS
+        TOPCOUNT(
+            NONEMPTY(
+                CROSSJOIN(
+                    [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS,
+                    [Dim Size Group].[Area Group].[Area Group].MEMBERS
+                ),
+                [Measures].[Fact Listing Count]
+            ),
+            6,
+            [Measures].[Fact Listing Count]
+        )
+
+    MEMBER [Measures].[BR03 Share National] AS
+        IIF(
+            ([Measures].[Fact Listing Count],
+             [Dim Price Segment].[Price Segment].DefaultMember,
+             [Dim Size Group].[Area Group].DefaultMember) = 0,
+            NULL,
+            [Measures].[Fact Listing Count] /
+            ([Measures].[Fact Listing Count],
+             [Dim Price Segment].[Price Segment].DefaultMember,
+             [Dim Size Group].[Area Group].DefaultMember)
+        ),
+        FORMAT_STRING = '0.00%'
+SELECT
+    {
+        [Measures].[Fact Listing Count],
+        [Measures].[BR03 Share National]
+    } ON COLUMNS,
+    NON EMPTY [BR03 Top 6 Combinations] ON ROWS
+FROM [Cube_Land];
+
+
+-- BR03.6. PARETO: NHOM NHO NHAT DAT IT NHAT 80% TONG SO TIN
+-- TopSum tu tim so to hop it nhat sao cho tong so tin >= 80% toan quoc.
+-- Doi soat tu CSV sach: can 16/30 to hop (53.33%),
+-- tong 88440 tin (khoang 81.21%); KHONG phai 20% to hop.
+-- Neu ket qua khac, kiem tra nhom gia/dien tich da Process trong Cube.
+WITH
+    SET [BR03 All Combinations] AS
+        NONEMPTY(
+            CROSSJOIN(
+                [Dim Price Segment].[Price Segment].[Price Segment].MEMBERS,
+                [Dim Size Group].[Area Group].[Area Group].MEMBERS
+            ),
+            [Measures].[Fact Listing Count]
+        )
+
+    SET [BR03 Pareto 80 Combinations] AS
+        TOPSUM(
+            [BR03 All Combinations],
+            0.8 *
+            ([Measures].[Fact Listing Count],
+             [Dim Price Segment].[Price Segment].DefaultMember,
+             [Dim Size Group].[Area Group].DefaultMember),
+            [Measures].[Fact Listing Count]
+        )
+
+    MEMBER [Measures].[BR03 Share National] AS
+        IIF(
+            ([Measures].[Fact Listing Count],
+             [Dim Price Segment].[Price Segment].DefaultMember,
+             [Dim Size Group].[Area Group].DefaultMember) = 0,
+            NULL,
+            [Measures].[Fact Listing Count] /
+            ([Measures].[Fact Listing Count],
+             [Dim Price Segment].[Price Segment].DefaultMember,
+             [Dim Size Group].[Area Group].DefaultMember)
+        ),
+        FORMAT_STRING = '0.00%'
+SELECT
+    {
+        [Measures].[Fact Listing Count],
+        [Measures].[BR03 Share National]
+    } ON COLUMNS,
+    NON EMPTY [BR03 Pareto 80 Combinations] ON ROWS
+FROM [Cube_Land];
+
+
+-- ============================================================================
+-- BR04. DUONG CHINH VA TRONG HEM: TRUY VAN MDX BO TRO
+-- BR04 CHINH: Median gia/m2 va chenh lech % can SQL/Power BI theo tung tin.
+-- ============================================================================
+
+-- BR04.1. CO CAU SO TIN THEO VI TRI
+-- Cau hoi bo tro: Duong chinh, Trong hem, Khong xac dinh co bao nhieu tin?
+-- Doi soat: 52177; 18047; 38685. Tong = 108909.
+-- Day la TY TRONG SO TIN, khong phai ty le chenh lech gia/m2.
+WITH
+    MEMBER [Measures].[BR04 Share National Listings] AS
+        IIF(
+            ([Measures].[Fact Listing Count],
+             [Dim Land Profile].[Position].DefaultMember) = 0,
+            NULL,
+            [Measures].[Fact Listing Count] /
+            ([Measures].[Fact Listing Count],
+             [Dim Land Profile].[Position].DefaultMember)
+        ),
+        FORMAT_STRING = '0.00%'
+SELECT
+    {
+        [Measures].[Fact Listing Count],
+        [Measures].[BR04 Share National Listings]
+    } ON COLUMNS,
+    NON EMPTY
+        [Dim Land Profile].[Position].[Position].MEMBERS ON ROWS
+FROM [Cube_Land];
+
+
+-- BR04.2. SO TIN THEO VI TRI x MIEN (CHI DUNG DE DOI CHIEU MAU)
+-- So sanh co cau tin Duong chinh / Trong hem giua cac mien,
+-- khong tu suy ra gia/m2 tu so tin.
+SELECT
+    NON EMPTY
+        [Dim Land Profile].[Position].[Position].MEMBERS ON COLUMNS,
+    NON EMPTY
+        [Dim Location].[Region Group].[Region Group].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE ([Measures].[Fact Listing Count]);
+
+
+-- ============================================================================
+-- BR05. TIN QUA 30 NGAY CHUA CAP NHAT: TRUY VAN MDX BO TRO
+-- BR05 CHINH: Phai tinh DATEDIFF(LastUpdatedAt, ScrapedAt) tren tung tin.
+-- Cube hien tai KHONG co do do tuoi tin de tinh dung ty le > 30 ngay.
+-- ============================================================================
+
+-- BR05.1. CO CAU SO TIN THEO THANG CAP NHAT CUOI
+-- Dim Time su dung LastUpdatedAt (khong phai ScrapedAt).
+-- Doi soat: 202503:1; 202504:4863; 202505:4184; 202506:4523;
+--          202507:10282; 202508:37823; 202509:47233.
+-- Tong = 108909; CHI cho biet thang cap nhat, KHONG phai tin cu > 30 ngay.
+SELECT
+    {[Measures].[Fact Listing Count]} ON COLUMNS,
+    NON EMPTY
+        [Dim Time].[Year Month].[Year Month].MEMBERS ON ROWS
+FROM [Cube_Land];
+
+
+-- BR05.2. THANG CAP NHAT CUOI x MIEN (HO TRO PHAN TICH)
+SELECT
+    NON EMPTY
+        [Dim Location].[Region Group].[Region Group].MEMBERS ON COLUMNS,
+    NON EMPTY
+        [Dim Time].[Year Month].[Year Month].MEMBERS ON ROWS
+FROM [Cube_Land]
+WHERE ([Measures].[Fact Listing Count]);
+
+
+-- ============================================================================
+-- BR06. WHAT-IF NGAN SACH
+-- Thuc hien tren Power BI, su dung gia va dien tich tung tin tu DW_Land.
+-- KHONG DAT SQL/DAX VAO FILE MDX NAY.
+-- ============================================================================
+
